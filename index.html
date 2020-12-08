@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en"> 
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+  <title>Click the Magic Ball  </title>
+</head>
+<style>
+  body {
+    /* background-color: rgb(43, 35, 35); */
+
+    background-image: url('game_bg.jpg');
+    background-size: cover;
+
+     height: 100vh;
+    background-repeat: no-repeat;
+   
+    color: white;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    overflow: hidden;
+    /* overflow:hidden; */
+    /* padding-left:300px; */
+  }
+
+  #header {
+    /* height: 50vh; */
+    background-color: rgba(0, 0, 248, 0.4);
+    display: none;
+  }
+
+  #ball {
+    background-color: rgb(84, 38, 170);
+    background-image: url("new_magic_ball1.jpg");
+    background-size: cover;
+    /* display: inline-block; */
+    height: 20vw;
+    width: 20vw;
+    /* transition: 0.1s; */
+    /* transition-duration: 1s; */
+    border-radius: 50%;
+    box-shadow: 0px 0px 30px 4px rgb(53, 5, 143), 0px 0px 40px 8px rgb(127, 92, 190), 0px 0px 10px 5px rgb(255, 255, 255);
+    position: relative;
+    left: 0vh;
+    right: 0vh;
+    z-index: 10;
+
+  }
+
+  #start_menu {
+
+    position: relative;
+
+
+    /* background-color: rgba(105, 62, 62,0.8); */
+    border: solid rgb(7, 226, 226);
+
+
+    text-align: center;
+    top: 10vh;
+    /* border-radius:5px; */
+  }
+
+  #start_message {
+
+    padding: 0px;
+    margin: 10px;
+  }
+
+  #score_message {
+    padding: 0px;
+    margin: 10px;
+    /* color:white ;!important; */
+    display: none;
+  }
+
+  #hint_button,
+  #start_button,
+  #replay_button,
+  #score_button,
+  #submit_button {
+    padding: 4px;
+    margin-bottom: 5px;
+    background-color: rgba(76, 76, 129, 0.4);
+    border-color: rgb(78, 78, 194);
+    color:white; 
+
+  }
+
+
+  #hint_button:hover,
+  #start_button:hover,
+  #replay_button:hover,
+  #score_button:hover,
+  #submit_button:hover,
+  #close_button:hover,
+  #hint_box_close_button:hover {
+    background-color: rgb(39, 39, 179);
+
+  }
+
+  #detail_box {
+    position: fixed;
+    background-color: brown;
+    border: solid rgb(7, 226, 226);
+    background-color: rgba(89, 18, 95, 0.5);
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    margin: 10px;
+    color: cornsilk;
+    display: none;
+  }
+
+  #time_taken,
+  #time_limit,
+  #score {
+    margin: 0px;
+    font-size: small;
+    color: rgb(192, 255, 65);
+  }
+
+  #score_box {
+
+    /* background-color:rgba(89, 18, 95,0.5); */
+    display: none;
+    /* background-color: brown; */
+    border: solid rgb(185, 174, 174);
+    position: relative;
+
+    padding: 0px;
+
+    width: 60%;
+    margin: auto;
+    top: -120px;
+    font-size: 20px;
+    font-size: 20px;
+    /* border-radius:5px; */
+  }
+
+  #hint_box {
+
+
+    display: none;
+    background-color: brown;
+    border: solid rgb(185, 174, 174);
+    position: relative;
+
+    padding: 0px;
+
+    width: 60%;
+    margin: auto;
+    top: -120px;
+    font-size: 20px;
+    font-size: 20px;
+  }
+
+  .right {
+    position: absolute;
+    right: 10px;
+    ;
+
+  }
+
+  .left {
+    position: relative;
+    left: 10px;
+    padding-left: 10px;
+
+
+  }
+
+  #last {
+    display: flexbox;
+    justify-content: center;
+    align-self: center;
+    /* display: contents; */
+    background-color: pink;
+  }
+
+  #score_list {
+    background-color: rgb(10, 10, 66);
+    /* height: 100px; */
+  }
+
+  #hint_box_message {
+    background-color: rgb(10, 10, 66);
+    padding: 10px;
+  }
+
+  #close_button {
+    position: absolute;
+    right: 0px;
+    margin: 5px;
+    color:white; 
+    padding: 5px 8px 5px;
+    border: solid rgb(221, 205, 221);
+    border-width: 0.1px;
+  }
+
+  #hint_box_close_button {
+    position: absolute;
+    right: 0px;
+    /* top:-1px; */
+    color:black;
+    margin-right: 5px;
+    padding: 5px 8px 5px;
+    border: solid rgb(221, 205, 221);
+    border-width: 0.1px;
+  }
+
+  #score_box_header,
+  #hint_box_header {
+    background-color: rgb(19, 6, 6);
+    /* margin:53px; */
+    padding: 5px;
+  }
+
+  #middle {
+    border-top: solid rgb(221, 205, 221);
+    border-bottom: solid rgb(221, 205, 221);
+    background-color: rgb(39, 83, 83);
+  }
+
+  #user_name {
+    background-color: blue;
+  }
+
+  #difficulty_range {
+    margin: 0px;
+    /* background-color:black; */
+    /* display: none; */
+  }
+
+  #difficulty_range:hover {
+
+    background-color: rgba(89, 18, 95, 0.5);
+
+  }
+
+  #input_range {
+    border-style: solid;
+    background-color: blanchedalmond;
+  }
+
+  #input_name {
+    width: 30%;
+
+  }
+  @media screen and (orientation: landscape){
+    #ball{
+      height: 20vh;
+    width: 20vh;
+    }
+
+  }
+  @media screen and (max-width:500px){
+    #hint_box{
+      width:98%;
+    }
+  }
+ 
+</style>
+<!-- html -->
+
+
+<body>
+  <div id="header"> </div>
+  <span id="ball">
+    
+  </span>
+
+
+
+
+  <!-- <audio src="bgmusic.mp3" loop   id=audio_button   > </audio> -->
+  <audio src="bg_music1.mp3" loop id=audio_button> </audio>
+  <audio src="bounce.mp3" id=aud_button> </audio>
+
+  <div align="center">
+
+    <div id="start_menu">
+      <p id="start_message">Click the Circle</p>
+      <p id="difficulty_range">
+        <input id="input_range" min=1 max=3 type="range" value=3>
+      </p>
+      <p id="score_message"> 1 out of 5</p>
+      <button id="start_button">Start</button>
+      <button id="hint_button">Hint</button>
+      <button id="replay_button">Replay</button>
+      <button id="score_button">Show Score</button>
+
+    </div>
+  </div>
+  <div id="detail_box">
+    <p id="time_limit">Time Limit :33434</p>
+    <p id="time_taken">Time Taken: 342343</p>
+    <p id="score">Score is:100000</p>
+  </div>
+
+
+  <div id="score_box">
+    <div id="score_box_header">
+      <input id="input_name" value="player">
+      <button id="submit_button">submit</button>
+      <button id="close_button" style=" color:black;">X</button>
+    </div>
+
+    <div id="middle">
+      <span class="left">Player Name </span>
+      <span class="right">Score </span>
+    </div>
+    <div id="score_list">
+
+
+    </div>
+  </div>
+
+
+
+  <div id="hint_box">
+    <div id="hint_box_header">
+
+      &nbsp;
+      <button id="hint_box_close_button">X</button>
+    </div>
+
+    <div id="hint_box_message">
+      In this game, you have to <i><b>click the yellow circle </b> </i> circle which appear when you click the start
+      button.
+      <br>If you <i><b>click the circle within the given time limit </b> </i>you will be update to next level.
+
+      <br> After clicking the circle one detail box will appear in top-right corner which displays your game details.
+      <ul>
+        <li><u>Time Limit</u> - time given for the current level </li>
+        <li><u>Time Taken</u> - time taken between the ball appear and the ball hit</li>
+        <li><u>Score</u> - score till current level</li>
+
+      </ul>
+      If the time taken is greater then the time limit<i><b> you will lose!</b></i> .
+      <br>click next to go to next level.
+
+      <br> You can change the difficulty level of game with the help of sliding button, moving toward
+      right will increase the difficulty level and vise-versa.
+      <br> You will have to click the ball as far as possible.
+      <br><b><i>Click start to play the game.</i></b>
+    </div>
+  </div>
+
+
+
+
+
+  <script>
+    var header = document.getElementById("header");
+    var ball = document.getElementById("ball");
+    var start_button = document.getElementById("start_button");
+    var replay_button = document.getElementById("replay_button");
+    var score_button = document.getElementById("score_button");
+    var close_button = document.getElementById("close_button");
+    var hint_button = document.getElementById("hint_button");
+    var hint_box_close_button = document.getElementById("hint_box_close_button");
+    var hint_box = document.getElementById("hint_box");
+    var audio_button = document.getElementById("audio_button");
+    var aud_button = document.getElementById("aud_button");
+
+    var score_list = document.getElementById("score_list");
+
+    var submit_button = document.getElementById("submit_button");
+    var input_name = document.getElementById("input_name");
+    var score_box = document.getElementById("score_box");
+    var input_range = document.getElementById("input_range");
+    var input_range = document.getElementById("input_range");
+
+    var difficulty_level = 10;
+
+    var score_message = document.getElementById("score_message");
+    var detail_box = document.getElementById("detail_box");
+    var start_menu = document.getElementById("start_menu");
+
+    var detail_box_children = detail_box.children;
+    var start_menu_children = start_menu.children;
+
+    var time_limit = 2000;
+    var score = 0;
+    var level_no = 1;
+    var time_taken;
+    var current_time
+    var brightness = 1;
+    let array = [
+      { "batman": 57300 },
+      { "bheem": 1493227000 },
+      { "raju": 28700 },
+      { "abraham": 8600 },
+      { "joker": 4595000 },
+      { "doremon": 65791000 }
+    ];
+ 
+  //  document.addEventListener("mousedown",function(){
+  //    console.log("w = ",innerWidth,"h = ",innerHeight); 
+  //  })
+
+
+    // document.addEventListener("click" , ()=> {
+    //   console.log( event.clientX);
+    // })
+
+    hint_button.addEventListener("click", function () {
+      hint_box.style.display = "block";
+      //  console.log("hiteed hit"); 
+    });
+
+    hint_box_close_button.addEventListener("click", () => {
+      hint_box.style.display = "none";
+    })
+
+    function display_game() {
+      let h = innerHeight;
+      let w = innerWidth;
+      // w=h= Math.min(h,w);
+      let r = Math.min(h, w) * 0.1;
+      Math.srand
+      ball.style.width = ball.style.height = 2 * r;
+      ball.style.top = String(-r) + "px";
+      header.style.height = String(r + (Math.random() * (h - 2 * r))) + "px";
+
+      ball.style.left = String(Math.random() * (w - 2 * r)) + "px";
+
+    }
+
+    function manage_input_range() {
+      difficulty_level = Number(input_range.value) * 5;
+      // console.log("input is executed ");
+      if (input_range.value == 3) {
+        //  console.log("input range fixed to 2300")
+        time_limit = 2300;
+      }
+      else {
+        time_limit = 2000;
+      }
+    }
+
+    input_range.addEventListener("change", manage_input_range);
+
+    function display_ball() {
+      ball.style.display = "inline-block";
+
+      header.style.display = "block";
+
+      display_game();
+      current_time = Date.now();
+
+
+
+    }
+
+
+    function show_detail_box() {
+      detail_box.style.display = "inline-block";
+      detail_box_children[0].textContent = "Time Limit: " + (time_limit);
+      detail_box_children[1].textContent = "Time Taken: " + (time_taken);
+      detail_box_children[2].textContent = "Score:      " + score;
+
+    }
+
+    function show_time_out_message() {
+      start_message.style.color = "rgb(255,5, 5)";
+      start_message.textContent = "Ops.. time up  You Lose! ";
+
+    }
+    replay_button.addEventListener("click", function () {
+      input_range.style.display = "inline-block";
+      // console.log("repaly button ");
+      hint_button.style.display = "inline";
+      brightness = 1;
+      start_menu.style.display = "inline-block";
+      replay_button.style.display = "none";
+      score_button.style.display = "none";
+      score_box.style.display = "none";
+      // start_button.style.display="inline-block";
+      reset_all_value();
+      start_button.style.display = "inline-block";
+      //  detail_box.style.display ="none";
+      detail_box.style.display = "none"
+      start_message.style.color = "white";
+      start_menu_children[2].textContent = "";
+      start_message.textContent = "Click the Circle";
+
+
+    });
+
+    function reset_all_value() {
+      level_no = 1;
+      brightness = 1;
+      ball.style.backgroundImage="url(new_magic_ball1.jpg)";
+        // brighness = 1; 
+      start_button.textContent = "Start";
+      score = 0;
+      time_limit = 2000;
+      manage_input_range();
+
+      // start_menu.style.display ="inline-block";
+      // replay_button.style.display ="none";
+      // score_button.style.display = "none";
+      // score_box.style.display ="none";
+    }
+    ball.addEventListener("mousedown", function () {
+
+      time_taken = Date.now() - current_time;
+      ball.style.display = "none";
+      header.style.display = "none";
+
+      score_message.style.display = "block";
+      score_message.textContent = `${level_no} out of ${difficulty_level}`;
+
+      // if (level_no == 1) {
+      //   score = 0;
+      //   time_limit = 2000;
+      //   start_button.textContent = "Next Level";
+      //   replay_button.style.display = "inline-block";
+      //}
+      if (time_taken <= time_limit) {
+        score += level_no * 1000 * (time_limit - time_taken);
+
+      }
+
+
+      show_detail_box();
+      start_button.textContent = "Next Level";
+      replay_button.style.display = "inline-block";
+
+      // console.log()
+
+      // console.log("difference is " , (time_limit -  time_taken));
+      // console.log((time_limit -  time_taken)< 0);
+
+
+
+      if ((time_limit < time_taken) || level_no == difficulty_level) {
+        ball.style.backgroundImage="url(new_magic_ball1.jpg)";
+        brighness = 1; 
+        replay_button.style.display = "inline-block";
+
+
+
+
+        start_menu.style.display = "inline-block";
+        start_message.style.color = "rgb(2, 255, 5)";
+        start_message.style.display = "inline-block";
+        start_button.style.display = "none";
+
+        score_button.style.display = "inline-block";
+
+
+        if ((time_limit < time_taken)) {
+          brightness=1;   
+           ball.style.backgroundImage="url(new_magic_ball1.jpg)";
+        // brighness = 1; 
+          show_time_out_message();
+        }
+
+        else {
+
+          start_message.textContent = "Horreaaa... You Win!";
+          brightness=1 ; 
+          ball.style.backgroundImage="url(new_magic_ball1.jpg)";
+        // brighness = 1; 
+
+        }
+
+
+
+      }
+      else {
+
+        level_no += 1;
+        time_limit = time_limit - 150;
+        display_start_menu();
+      }
+      
+     if(level_no>10){
+        ball.style.backgroundImage="url(new_magic_ball3.jpg)";
+      }
+        else if(level_no>5){
+        ball.style.backgroundImage="url(new_magic_ball2.jpg)";
+     
+      }
+ 
+      brightness += 1;
+      ball.style.boxShadow = " 0px 0px " + brightness + "0px 4px rgb(53, 5, 143),0px 0px 40px 8px rgb(127, 92, 190),0px 0px " + (brightness * 2) + "0px  " + brightness + "0px rgb(255, 255, 255)"
+    });
+
+    function display_start_menu() {
+      start_menu.style.display = "inline-block";
+    }
+
+    start_button.addEventListener("click", function () {
+      start_menu.style.display = "none";
+      input_range.style.display = "none";
+      hint_button.style.display = "none";
+      setTimeout(display_ball, (Math.random() * 3000) + 500);
+    })
+
+    function remove_from_score_list() {
+
+      let temp = score_list.children;
+      //  if()
+      let len = temp.length;
+      if (len == 0) {
+        return;
+      }
+      while (len) {
+        temp[--len].remove();
+      }
+      //  console.log("after remving score list is: ");
+      //  console.log(score_list);
+    }
+
+
+
+    function add_to_score_list(index, signal = 0) {
+
+      let key;
+      let user_name = input_name.value;
+
+      let x = document.createElement("div");
+      let temp = document.createElement("span");
+
+      temp.className = "left"
+      for (i in array[index]) {
+        key = i;
+      }
+      if (user_name == i) {
+        x.id = "user_name";
+
+      }
+      temp.textContent = i;
+      x.appendChild(temp);
+      temp = document.createElement("span");
+      temp.className = "right";
+      temp.textContent = array[index][i];
+      x.appendChild(temp);
+      score_list.appendChild(x);
+    }
+
+
+    function set_score_list() {
+      let key1, value1, key2, value2;
+      let score_list_index = localStorage.getItem("score_list_index");
+      if (score_list_index != null) {
+        score_list_index = JSON.parse(score_list_index);
+        // console.log(score_list_index);
+      }
+      else {
+        localStorage.setItem("score_list_index", JSON.stringify({}))
+        score_list_index = {};
+      }
+      if (remove_space_from_both_side(input_name.value).length == 0) {
+        input_name.value = "player";
+      }
+      let temp_name = input_name.value;
+      let count = 1;
+      // console.log("score_list is");
+      // console.log(score_list_index);
+      if (score_list_index[temp_name] != null) {
+        while (score_list_index[temp_name + "(" + count + ")"] != null) {
+          count++;
+        }
+        input_name.value = temp_name + "(" + count + ")";
+      }
+
+
+      score_list_index[input_name.value] = score;
+      let dict = {};
+      for (key in score_list_index) {
+        dict = {};
+
+
+        dict[key] = score_list_index[key];
+
+        array.push(dict);
+      }
+
+      function sort_by_score(a, b) {
+
+        for (let i in a) {
+          key1 = i;
+          value1 = a[i];
+        }
+        for (let i in b) {
+          key2 = i;
+          value2 = b[i];
+        }
+        // console.log(key1 ,":",value1,",",key2,":",value2);
+        if (value1 > value2) return 1;
+        else if (value1 == value2) return 0;
+        else return -1;
+      }
+
+      array.sort(sort_by_score);
+
+
+      let len = array.length;
+      remove_from_score_list();
+      for (let i = len - 1; i >= 0; i--) {
+        add_to_score_list(i);
+      }
+      localStorage.setItem("score_list_index", JSON.stringify(score_list_index));
+      input_name.value = "";
+      array = [
+        { "batman": 57300 },
+        { "bheem": 1493227000 },
+        { "raju": 28700 },
+        { "abraham": 8600 },
+        { "joker": 4595000 },
+        { "doremon": 65791000 }
+      ];
+
+
+
+      // console.log("key ", (array[3]).key(0)," value",array[3][ (array[3]).key(0)]);
+    }
+
+    submit_button.addEventListener("click", function () {
+      remove_from_score_list();
+
+
+      set_score_list();
+      score_box.style.display = "block";
+    });
+
+    close_button.addEventListener("click", function () {
+      // window.location.reload();
+      score_box.style.display = "none";
+
+    });
+
+
+    function remove_space_from_both_side(string) {
+      let len = string.length;
+      if (len == 0)
+        return "";
+      let i = 0;
+      while (string[i] == " ") {
+        i++
+      }
+      if (i == len)
+        return "";
+      len = len - 1;
+      while (string[len] == " ") {
+        len--;
+      }
+      return string.substring(i, len + 1);;
+
+
+    }
+
+    score_button.addEventListener("click", function () {
+      remove_from_score_list();
+
+      if (remove_space_from_both_side(input_name.value).length == 0) {
+        input_name.value = "player";
+      }
+      set_score_list();
+      score_box.style.display = "block";
+    })
+
+    display_start_menu();
+    replay_button.style.display = "none";
+    score_button.style.display = "none";
+    detail_box.style.display = "none";
+    start_menu.addEventListener("click", function () {
+      //  console.log(audio_button);  
+      audio_button.play();
+    });
+    document.addEventListener("click", function () {
+      // console.log("clice"); 
+      aud_button.play();
+    })
+    ball.style.backgroundImage="url(new_magic_ball3.jpg)";
+    ball.style.backgroundImage="url(new_magic_ball2.jpg)";
+    ball.style.backgroundImage="url(new_magic_ball1.jpg)";
+ manage_input_range(); 
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+<!-- x.insertAdjacentHTML("afterend", 
+// '<img src="'+ image_array[3] + '" alt="no_image">'); -->
