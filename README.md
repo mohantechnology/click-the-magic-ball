@@ -2,7 +2,7 @@
 Mini Game using Html , CSS  , Javascript<br/>
 <br/>
 
-<!-- <a href="http://machen.epizy.com/game/index.html"><button  type="button">Click Me to play the game </button></a> -->
+<a href="http://machen.epizy.com/game/index.html" target="_blank"><button  type="button">Click Me to play the game </button></a>
 
 In this game, you have to click the yellow circle circle which appear when you click the start button.<br/>
 If you click the circle within the given time limit you will be update to next level.<br/>
