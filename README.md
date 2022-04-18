@@ -16,3 +16,4 @@ click next to go to next level.<br/>
 You can change the difficulty level of game with the help of sliding button, moving toward right will increase the difficulty level and vise-versa.<br/>
 You will have to click the ball as far as possible.<br/>
 <!-- Click start to play the game. -->
+![Screenshot (4536)](https://user-images.githubusercontent.com/71864565/163865719-8fecd12a-4095-45f2-9a93-8c5e3ddd3c85.png)
