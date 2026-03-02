@@ -1,0 +1,14 @@
+node_modules/
+**/logs
+myfile/
+myfile2/
+mailjet/
+temp.js
+temp.*
+temp.*
+.env
+# upload/
+socket/
+views/temp.html
+google.html
+
